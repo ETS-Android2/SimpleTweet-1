@@ -1,4 +1,4 @@
-package com.nekozeye.apps.twitterapp.models;
+package com.codepath.apps.restclienttemplate.models;
 
 import androidx.room.Dao;
 import androidx.room.Insert;

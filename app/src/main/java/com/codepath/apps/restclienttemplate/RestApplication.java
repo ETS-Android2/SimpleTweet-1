@@ -1,4 +1,4 @@
-package com.nekozeye.apps.twitterapp;
+package com.codepath.apps.restclienttemplate;
 
 import android.app.Application;
 import android.content.Context;
@@ -16,7 +16,7 @@ import com.facebook.stetho.Stetho;
  *     // use client to send requests to API
  *
  */
-public class TwitterApp extends Application {
+public class RestApplication extends Application {
 
     MyDatabase myDatabase;
 
@@ -32,8 +32,8 @@ public class TwitterApp extends Application {
         Stetho.initializeWithDefaults(this);
     }
 
-    public static TwitterClient getRestClient(Context context) {
-        return (TwitterClient) TwitterClient.getInstance(TwitterClient.class, context);
+    public static RestClient getRestClient(Context context) {
+        return (RestClient) RestClient.getInstance(RestClient.class, context);
     }
 
     public MyDatabase getMyDatabase() {
