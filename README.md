@@ -111,7 +111,7 @@ For example, if you were connecting to Twitter, you would want a Tweet model as 
 
 ```java
 // models/Tweet.java
-package com.codepath.apps.restclienttemplate.models;
+package com.codepath.apps.twitterapp.models;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
@@ -124,21 +124,21 @@ import org.json.JSONObject;
 
 @Entity
 public class Tweet {
-  // Define database columns and associated fields
-  @PrimaryKey
-  @ColumnInfo
-  Long id;
-  @ColumnInfo
-  String userHandle;
-  @ColumnInfo
-  String timestamp;
-  @ColumnInfo
-  String body;
+    // Define database columns and associated fields
+    @PrimaryKey
+    @ColumnInfo
+    Long id;
+    @ColumnInfo
+    String userHandle;
+    @ColumnInfo
+    String timestamp;
+    @ColumnInfo
+    String body;
 
-  // Use @Embedded to keep the column entries as part of the same table while still
-  // keeping the logical separation between the two objects.
-  @Embedded
-  User user;
+    // Use @Embedded to keep the column entries as part of the same table while still
+    // keeping the logical separation between the two objects.
+    @Embedded
+    User user;
 }
 ```
 

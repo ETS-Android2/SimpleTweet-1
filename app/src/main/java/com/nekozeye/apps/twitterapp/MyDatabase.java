@@ -1,10 +1,10 @@
-package com.codepath.apps.restclienttemplate;
+package com.nekozeye.apps.twitterapp;
 
 import androidx.room.Database;
 import androidx.room.RoomDatabase;
 
-import com.codepath.apps.restclienttemplate.models.SampleModel;
-import com.codepath.apps.restclienttemplate.models.SampleModelDao;
+import com.nekozeye.apps.twitterapp.models.SampleModel;
+import com.nekozeye.apps.twitterapp.models.SampleModelDao;
 
 @Database(entities={SampleModel.class}, version=1)
 public abstract class MyDatabase extends RoomDatabase {
