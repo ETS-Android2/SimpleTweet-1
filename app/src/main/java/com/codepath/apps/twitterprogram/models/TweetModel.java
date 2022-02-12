@@ -1,6 +1,8 @@
 package com.codepath.apps.twitterprogram.models;
 
 
+import com.codepath.apps.twitterprogram.helpers.TimeFormatter;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,6 +15,12 @@ public class TweetModel {
     public String body;
     public String createdAt;
     public TwitterUserModel user;
+
+
+    public String getFormattedTimeStamp()
+    {
+        return TimeFormatter.getTimeDifference(this.createdAt);
+    }
 
 
     public static TweetModel fromJson(JSONObject jsonObject) throws JSONException {

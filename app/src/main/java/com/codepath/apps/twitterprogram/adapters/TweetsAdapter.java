@@ -1,6 +1,9 @@
 package com.codepath.apps.twitterprogram.adapters;
 
 import android.content.Context;
+import android.os.Parcelable;
+import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,12 +30,29 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.TweetViewH
     }
 
 
+    public void clear(){
+        this.tweets.clear();
+        notifyDataSetChanged();
+    }
+
+    public void addAll(List<TweetModel> list){
+        this.tweets.addAll(list);
+        notifyDataSetChanged();
+    }
+
+
     // For each row, inflate the layout
     @NonNull
     @Override
     public TweetViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_tweet,parent,false);
+
+
+
+
         return new TweetViewHolder(view);
+
+
     }
 
 
@@ -62,6 +82,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.TweetViewH
         ImageView ivProfileImage;
         TextView tvBody;
         TextView tvScreenName;
+        TextView tvActualID;
+        TextView tvUpdateTime;
 
         public TweetViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -69,13 +91,21 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.TweetViewH
 
             ivProfileImage = itemView.findViewById(R.id.ivProfileImage);
             tvBody = itemView.findViewById(R.id.tvBody);
+            tvActualID = itemView.findViewById(R.id.tvActualID);
             tvScreenName = itemView.findViewById(R.id.tvScreenName);
+            tvUpdateTime = itemView.findViewById(R.id.tvUpdateTime);
         }
 
         public void bind(TweetModel tweet) {
+
+
             Glide.with(context).load(tweet.user.publicImageURL).into(ivProfileImage);
-            tvBody.setText(tweet.body) ;
+            tvActualID.setText("@"+tweet.user.name);
+            tvBody.setText(tweet.body);
             tvScreenName.setText(tweet.user.screenName);
+            tvUpdateTime.setText(tweet.getFormattedTimeStamp());
+
         }
+
     }
 }

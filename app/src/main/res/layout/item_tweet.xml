@@ -17,16 +17,56 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
+        android:textStyle="bold"
         android:layout_toEndOf="@+id/ivProfileImage"
-        tools:text="sampleid1234" />
+        android:ellipsize="end"
+        android:maxEms="30"
+        android:singleLine="true"
+        android:textColor="@color/colorPrimaryDark"
+        tools:text="asdfasdfasdfasdasdfasdfasdfasdfasdfasdfafasdfasdfasdfa+" />
 
     <TextView
         android:id="@+id/tvBody"
+        android:textColor="@color/colorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvActualID"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="@dimen/name_time_spaces"
+        android:layout_toEndOf="@+id/ivProfileImage"
+        tools:text="This is my Tweet!" />
+
+    <TextView
+        android:id="@+id/tvActualID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvScreenName"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="@dimen/name_time_spaces"
+        android:layout_marginEnd="5dp"
+        android:textSize="4.5pt"
         android:layout_toEndOf="@+id/ivProfileImage"
-        tools:text="This is my Tweet!" />
+        tools:text="\@Neko2Mizu" />
+
+    <TextView
+        android:id="@+id/tvDot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvScreenName"
+        android:layout_marginTop="@dimen/name_time_spaces"
+        android:layout_marginEnd="5dp"
+        android:textSize="4.5pt"
+        android:layout_toEndOf="@+id/tvActualID"
+        android:text="·" />
+
+    <TextView
+        android:id="@+id/tvUpdateTime"
+        android:layout_below="@+id/tvScreenName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/name_time_spaces"
+        android:textSize="4.5pt"
+        android:layout_toEndOf="@+id/tvDot"
+        tools:text="5h"/>
+
 </RelativeLayout>

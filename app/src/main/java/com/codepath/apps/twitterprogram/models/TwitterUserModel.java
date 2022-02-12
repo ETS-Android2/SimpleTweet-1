@@ -13,8 +13,9 @@ public class TwitterUserModel {
     public static TwitterUserModel fromJson(JSONObject jsonObject) throws JSONException {
         TwitterUserModel user = new TwitterUserModel();
 
-        user.name = jsonObject.getString("name");
-        user.screenName = jsonObject.getString("screen_name");
+        //the name and screenname is flipped since twitter api returns "screen name" in name
+        user.name = jsonObject.getString("screen_name");
+        user.screenName = jsonObject.getString("name");
         user.publicImageURL = jsonObject.getString("profile_image_url_https");
 
         return user;
