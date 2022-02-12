@@ -73,7 +73,7 @@ public class TimelineActivity extends AppCompatActivity {
         populateHomeTimeline(1);
     }
 
-    
+
 
     public void populateHomeTimeline(int page) {
         // Send the network request to fetch the updated data
