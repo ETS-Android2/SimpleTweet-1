@@ -8,9 +8,6 @@ import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.codepath.oauth.OAuthBaseClient;
 import com.github.scribejava.apis.TwitterApi;
 import com.github.scribejava.core.builder.api.BaseApi;
-import com.github.scribejava.core.model.OAuth1AccessToken;
-import com.github.scribejava.core.model.OAuth2AccessToken;
-import com.github.scribejava.core.model.Token;
 
 /*
  * 
@@ -56,6 +53,17 @@ public class TwitterClient extends OAuthBaseClient {
 		params.put("since_id",1);
 		client.get(apiUrl, params, handler);
 	}
+
+	public void getNextHomeTimeline(JsonHttpResponseHandler handler, long maxID) {
+
+		String apiUrl = getApiUrl("statuses/home_timeline.json");
+		// Can specify query string params directly or through RequestParams.
+		RequestParams params = new RequestParams();
+		params.put("count",26);
+		params.put("max_id",maxID);
+		client.get(apiUrl, params, handler);
+	}
+
 
 	/* 1. Define the endpoint URL with getApiUrl and pass a relative path to the endpoint
 	 * 	  i.e getApiUrl("statuses/home_timeline.json");

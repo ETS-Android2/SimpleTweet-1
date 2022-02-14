@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.codepath.apps.twitterprogram.adapters.TweetsAdapter;
+import com.codepath.apps.twitterprogram.helpers.EndlessRecyclerViewScrollListener;
 import com.codepath.apps.twitterprogram.models.TweetModel;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
@@ -30,6 +31,8 @@ public class TimelineActivity extends AppCompatActivity {
     List<TweetModel> tweets;
     TweetsAdapter adapter;
     SwipeRefreshLayout swipeContainer;
+
+    private EndlessRecyclerViewScrollListener scrollListener;
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -66,11 +69,51 @@ public class TimelineActivity extends AppCompatActivity {
         tweets = new ArrayList<>();
         adapter = new TweetsAdapter(this,tweets);
         //Recycler view setup
-        rvTweets.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        rvTweets.setLayoutManager(layoutManager);
         rvTweets.setAdapter(adapter);
+
+        scrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                loadNextDataFromApi(page);
+                Log.i(TAG,"Load more: "+page);
+            }
+        };
+
+        rvTweets.addOnScrollListener(scrollListener);
 
 
         populateHomeTimeline(1);
+    }
+
+    public void loadNextDataFromApi(int offset){
+        // Send an API request to retrieve appropriate paginated data
+        //  --> Send the request including an offset value (i.e `page`) as a query parameter.
+        client.getNextHomeTimeline(new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Headers headers, JSON json) {
+                Log.i(TAG, "onSuccess():Next page"+"\n"+json.toString());
+
+                JSONArray jsonArray = json.jsonArray;
+                try{
+                    adapter.addAll(TweetModel.fromJsonArray(jsonArray));
+                    swipeContainer.setRefreshing(false);
+                }
+                catch (JSONException e){
+                    Log.e(TAG, "Json exeption", e);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                Log.e(TAG,"OnFailure()"+response, throwable);
+            }
+        }, tweets.get(tweets.size()-1).ID-1);
+
+        //  --> Deserialize and construct new model objects from the API response
+        //  --> Append the new data objects to the existing set of items inside the array of items
+        //  --> Notify the adapter of the new items made with `notifyItemRangeInserted()`
     }
 
 

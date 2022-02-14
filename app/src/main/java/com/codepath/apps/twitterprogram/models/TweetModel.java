@@ -15,6 +15,7 @@ public class TweetModel {
     public String body;
     public String createdAt;
     public TwitterUserModel user;
+    public long ID;
 
 
     public String getFormattedTimeStamp()
@@ -29,6 +30,7 @@ public class TweetModel {
         tweet.body = jsonObject.getString("text");
         tweet.createdAt = jsonObject.getString("created_at");
         tweet.user = TwitterUserModel.fromJson(jsonObject.getJSONObject("user"));
+        tweet.ID = jsonObject.getLong("id");
 
         return tweet;
     }
