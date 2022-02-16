@@ -1,5 +1,6 @@
 package com.codepath.apps.twitterprogram;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,10 +14,12 @@ import android.util.Log;
 import com.codepath.apps.twitterprogram.adapters.TweetsAdapter;
 import com.codepath.apps.twitterprogram.helpers.EndlessRecyclerViewScrollListener;
 import com.codepath.apps.twitterprogram.models.TweetModel;
+import com.codepath.apps.twitterprogram.models.TwitterUserModel;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +35,8 @@ public class TimelineActivity extends AppCompatActivity {
     List<TweetModel> tweets;
     TweetsAdapter adapter;
     SwipeRefreshLayout swipeContainer;
+    ActionBar actionBar;
+    TwitterUserModel currentUser;
 
     private EndlessRecyclerViewScrollListener scrollListener;
 
@@ -42,15 +47,24 @@ public class TimelineActivity extends AppCompatActivity {
         setContentView(R.layout.activity_timeline);
 
 
+
+
+
         //TODO:data binding required
 
         client = TwitterApp.getRestClient(this);
 
+        actionBar = getSupportActionBar();
+        loadCurrentUserOnActionBar();
+
+        actionBar.setIcon(R.drawable.ic_launcher_twitter_round);
+        actionBar.setDisplayUseLogoEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
+
+
+
         swipeContainer = findViewById(R.id.swipeContainer);
-        swipeContainer.setColorSchemeColors(android.R.color.holo_blue_bright,
-                android.R.color.holo_green_light,
-                android.R.color.holo_orange_light,
-                android.R.color.holo_red_light);
+        swipeContainer.setColorSchemeColors(R.color.twitter_blue);
 
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -90,6 +104,28 @@ public class TimelineActivity extends AppCompatActivity {
 
 
         populateHomeTimeline(1);
+    }
+
+    public void loadCurrentUserOnActionBar()
+    {
+        client.getVerificationCredentials(new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Headers headers, JSON json) {
+                JSONObject JSONobj = json.jsonObject;
+                try {
+                   currentUser = TwitterUserModel.fromJson(JSONobj);
+                    actionBar.setSubtitle("@"+currentUser.screenName+"'s Home Timeline");
+                } catch (JSONException e) {
+                    Log.e(TAG,"Failed json", e);
+                }
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                Log.e(TAG,"OnFailure()"+response, throwable);
+            }
+        });
     }
 
     public void loadNextDataFromApi(int offset){
@@ -148,6 +184,7 @@ public class TimelineActivity extends AppCompatActivity {
             @Override
             public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
                 Log.e(TAG,"OnFailure()"+response, throwable);
+
             }
         });
 

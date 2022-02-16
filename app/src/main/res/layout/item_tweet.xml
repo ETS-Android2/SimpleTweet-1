@@ -4,10 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp">
+    android:layout_margin="5dp"
+    android:id="@+id/rlTweeterTimelineRecyclerLayout"
+    >
+
+    <TextView
+        android:id="@+id/tvRTMarker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="@dimen/name_time_spaces"
+        android:layout_toEndOf="@+id/ivRTImage"
+        tools:text="This is my Tweet!" />
+
+    <ImageView
+        android:id="@+id/ivRTImage"
+        android:layout_width="wrap_content"
+        android:layout_height="19dp"
+        tools:srcCompat="@drawable/ic_vector_retweet_gray" />
+
 
     <ImageView
         android:id="@+id/ivProfileImage"
+        android:layout_below="@+id/tvRTMarker"
+        android:layout_marginTop="5dp"
         android:layout_width="50dp"
         android:layout_height="50dp"
         tools:srcCompat="@tools:sample/avatars" />
@@ -16,18 +36,19 @@
         android:id="@+id/tvScreenName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/tvRTMarker"
         android:layout_marginStart="5dp"
-        android:textStyle="bold"
+        android:layout_marginTop="5dp"
         android:layout_toEndOf="@+id/ivProfileImage"
         android:ellipsize="end"
         android:maxEms="30"
         android:singleLine="true"
         android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
         tools:text="asdfasdfasdfasdasdfasdfasdfasdfasdfasdfafasdfasdfasdfa+" />
 
     <TextView
         android:id="@+id/tvBody"
-        android:textColor="@color/colorPrimary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvActualID"
@@ -35,6 +56,7 @@
         android:layout_marginTop="@dimen/name_time_spaces"
         android:layout_toEndOf="@+id/ivProfileImage"
         android:autoLink="all"
+        android:textColor="@color/colorPrimary"
         tools:text="This is my Tweet!" />
 
     <TextView
@@ -45,8 +67,8 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="@dimen/name_time_spaces"
         android:layout_marginEnd="5dp"
-        android:textSize="4.5pt"
         android:layout_toEndOf="@+id/ivProfileImage"
+        android:textSize="4.5pt"
         tools:text="\@Neko2Mizu" />
 
     <TextView
@@ -56,18 +78,20 @@
         android:layout_below="@+id/tvScreenName"
         android:layout_marginTop="@dimen/name_time_spaces"
         android:layout_marginEnd="5dp"
-        android:textSize="4.5pt"
         android:layout_toEndOf="@+id/tvActualID"
-        android:text="·" />
+        android:text="·"
+        android:textSize="4.5pt" />
 
     <TextView
         android:id="@+id/tvUpdateTime"
-        android:layout_below="@+id/tvScreenName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/tvScreenName"
         android:layout_marginTop="@dimen/name_time_spaces"
-        android:textSize="4.5pt"
         android:layout_toEndOf="@+id/tvDot"
-        tools:text="5h"/>
+        android:textSize="4.5pt"
+        tools:text="5h" />
+
+
 
 </RelativeLayout>

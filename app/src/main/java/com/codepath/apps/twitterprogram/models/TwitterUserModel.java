@@ -2,12 +2,18 @@ package com.codepath.apps.twitterprogram.models;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
+@Parcel
 public class TwitterUserModel {
 
     public String name;
     public String screenName;
     public String publicImageURL;
+
+    public TwitterUserModel(){
+
+    }
 
 
     public static TwitterUserModel fromJson(JSONObject jsonObject) throws JSONException {
