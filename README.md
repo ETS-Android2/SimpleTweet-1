@@ -1,8 +1,8 @@
-# Project 2 - *Name of App Here*
+# Project 2 - *Simple Twitter*
 
-**Name of your app** is an android app that allows a user to view his Twitter timeline. The app utilizes [Twitter REST API](https://dev.twitter.com/rest/public).
+**Simple Twitter** is an android app that allows a user to view his Twitter timeline. The app utilizes [Twitter REST API](https://dev.twitter.com/rest/public).
 
-Time spent: **X** hours spent in total
+Time spent: **20+** hours spent in total
 
 ## User Stories
 
@@ -17,17 +17,18 @@ The following **required** functionality is completed:
 The following **optional** features are implemented:
 
 - [X] User can view more tweets as they scroll with infinite pagination
-- [ ] Improve the user interface and theme the app to feel "twitter branded"
+- [X] Improve the user interface and theme the app to feel "twitter branded"
 - [X] Links in tweets are clickable and will launch the web browser
-- [ ] User can tap a tweet to display a "detailed" view of that tweet
-- [ ] User can see embedded image media within the tweet detail view
+- [X] User can tap a tweet to display a "detailed" view of that tweet
+- [X] User can see embedded image media within the tweet detail view
 - [ ] User can watch embedded video within the tweet
 - [ ] User can open the twitter app offline and see last loaded tweets
 - [ ] On the Twitter timeline, leverage the CoordinatorLayout to apply scrolling behavior that hides / shows the toolbar.
 
 The following **additional** features are implemented:
 
-- [ ] List anything else that you can get done to improve the app functionality!
+- [X] Retweeted tweets show retweeted tweets, not the retweet message!
+- [X] Shows who logged in at the top title subtitles!
 
 ## Video Walkthrough
 
