@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ComposeActivity">
+    <RelativeLayout
+        android:id="@+id/compose_topbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/twitter_blue_lighter">
+
+        <ImageView
+            android:id="@+id/twittercomposingicon"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:src="@drawable/ic_vector_compose"
+            app:tint="@color/twitter_blue_50"></ImageView>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="310dp"
+            android:layout_marginTop="15dp"
+            android:layout_toEndOf="@+id/twittercomposingicon"
+            android:text="Tweet"
+            android:textColor="@color/twitter_blue" />
+
+    </RelativeLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tila"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/compose_topbar"
+        app:counterEnabled="true"
+        app:counterTextAppearance="@style/counterText"
+        app:counterMaxLength="@integer/MaxTweetLength">
+        <EditText
+            android:id="@+id/etCompose"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:ems="10"
+
+
+            android:gravity="start|top"
+            android:hint="@string/posting_tweet_prompt"
+            android:inputType="textMultiLine"
+            android:minLines="5" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <Button
+        android:id="@+id/btnTweet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tila"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:enabled="false"
+        android:backgroundTint="@color/button_compose"
+        android:text="@string/tweet" />
+</RelativeLayout>

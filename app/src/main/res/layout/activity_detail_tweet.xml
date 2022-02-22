@@ -9,14 +9,13 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:overScrollMode="always"
-        >
+        android:overScrollMode="always">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
-
             >
+
             <TextView
                 android:id="@+id/tvRTMarker"
                 android:layout_width="wrap_content"
@@ -26,67 +25,83 @@
                 android:layout_toEndOf="@+id/ivRTImage"
                 tools:text="This is my Tweet!" />
 
-            <ImageView
-                android:id="@+id/ivRTImage"
-                android:layout_width="wrap_content"
-                android:layout_height="19dp"
-                tools:srcCompat="@drawable/ic_vector_retweet_gray" />
+            <androidx.cardview.widget.CardView
+                android:id="@+id/myCardView"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="5dp"
+                app:cardCornerRadius="50dp"
+                android:layout_below="@+id/tvRTMarker"
+                >
 
                 <ImageView
                     android:id="@+id/ivProfileImage"
-                    android:layout_width="46dp"
-                    android:layout_height="46dp"
-                    android:layout_below="@+id/tvRTMarker"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     tools:srcCompat="@tools:sample/avatars" />
 
-                <TextView
-                    android:id="@+id/tvScreenName"
-                    android:layout_below="@+id/tvRTMarker"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="7dp"
-                    android:layout_toEndOf="@+id/ivProfileImage"
-                    android:ellipsize="end"
-                    android:maxEms="26"
-                    android:singleLine="true"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textStyle="bold"
-                    tools:text="MMMMMMMMMMMMMMMMMMMMMMMMMMMMMM" />
-
-                <TextView
-                    android:id="@+id/tvActualID"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tvScreenName"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="@dimen/name_time_spaces"
-                    android:layout_marginEnd="5dp"
-                    android:layout_toEndOf="@+id/ivProfileImage"
-                    android:textSize="4.5pt"
-                    tools:text="\@Neko2Mizu" />
-
-                <TextView
-                    android:id="@+id/tvBody"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/ivProfileImage"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginEnd="15dp"
-                    android:autoLink="all"
-                    android:textColor="@color/colorPrimary"
-                    tools:text="This is my Tweet!" />
+            </androidx.cardview.widget.CardView>
 
                 <ImageView
-                    android:id="@+id/ivadditionalImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tvBody"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="5dp"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    android:id="@+id/ivRTImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="19dp"
+
+                    android:layout_marginTop="@dimen/name_time_spaces"
+                    tools:srcCompat="@drawable/ic_vector_retweet_gray" />
+
+
+
+            <TextView
+                android:id="@+id/tvScreenName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvRTMarker"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="7dp"
+                android:layout_toEndOf="@+id/myCardView"
+                android:ellipsize="end"
+                android:maxEms="26"
+                android:singleLine="true"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold"
+                tools:text="MMMMMMMMMMMMMMMMMMMMMMMMMMMMMM" />
+
+            <TextView
+                android:id="@+id/tvActualID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvScreenName"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="@dimen/name_time_spaces"
+                android:layout_marginEnd="5dp"
+                android:layout_toEndOf="@+id/myCardView"
+                android:textSize="4.5pt"
+                tools:text="\@Neko2Mizu" />
+
+            <TextView
+                android:id="@+id/tvBody"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/myCardView"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:textSize="17dp"
+                android:autoLink="all"
+                android:textColor="@color/colorPrimary"
+                tools:text="This is my Tweet!" />
+
+            <ImageView
+                android:id="@+id/ivadditionalImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvBody"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="5dp"
+                tools:srcCompat="@tools:sample/avatars" />
 
             <Space
                 android:layout_width="match_parent"

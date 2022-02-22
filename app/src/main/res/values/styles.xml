@@ -6,7 +6,15 @@
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
         -->
+
     </style>
+
+    <style name="TwitterTimelineTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+
+        <item name="contentInsetStart">0dp</item>
+        <item name="contentInsetEnd">0dp</item>
+    </style>
+
 
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
@@ -14,6 +22,14 @@
         <item name="colorPrimary">@color/twitter_blue_50</item>
     </style>
 
+    <style name="counterText">
+        <item name="android:textColor">@color/twitter_blue_30</item>
+    </style>
+
+
+    <style name="counterOverride">
+        <item name="android:textColor">#ff0000</item>
+    </style>
 
 
 </resources>

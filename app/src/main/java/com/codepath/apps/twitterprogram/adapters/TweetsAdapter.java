@@ -27,6 +27,7 @@ import org.parceler.Parcels;
 import java.util.List;
 
 public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.TweetViewHolder>{
+
     // Pass in the context and list of tweets
     Context context;
     List<TweetModel> tweets;
@@ -45,6 +46,11 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.TweetViewH
     public void addAll(List<TweetModel> list){
         this.tweets.addAll(list);
         notifyDataSetChanged();
+    }
+
+    public void addFirst(TweetModel tweet){
+        this.tweets.add(0,tweet);
+        notifyItemInserted(0);
     }
 
 
@@ -91,7 +97,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.TweetViewH
         TextView tvRTMarker;
         ImageView ivRTImage;
 
-        RelativeLayout rlTweeterTimelineRecyclerLayout;
+        RelativeLayout rlFullTweetLayout;
 
         public TweetViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -108,7 +114,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.TweetViewH
             ivRTImage = itemView.findViewById(R.id.ivRTImage);
 
 
-            rlTweeterTimelineRecyclerLayout = itemView.findViewById(R.id.rlTweeterTimelineRecyclerLayout);
+            rlFullTweetLayout = itemView.findViewById(R.id.rlFullTweetLayout);
 
         }
 
@@ -143,7 +149,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.TweetViewH
                 tvUpdateTime.setText(tweet.retweet_container.getFormattedTimeStamp());
             }
 
-            rlTweeterTimelineRecyclerLayout.setOnClickListener(new View.OnClickListener(){
+            rlFullTweetLayout.setOnClickListener(new View.OnClickListener(){
 
                 @Override
                 public void onClick(View view) {

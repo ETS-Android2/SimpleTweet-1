@@ -1,25 +1,41 @@
 package com.codepath.apps.twitterprogram;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.codepath.apps.twitterprogram.adapters.TweetsAdapter;
 import com.codepath.apps.twitterprogram.helpers.EndlessRecyclerViewScrollListener;
 import com.codepath.apps.twitterprogram.models.TweetModel;
 import com.codepath.apps.twitterprogram.models.TwitterUserModel;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +45,9 @@ import okhttp3.Headers;
 public class TimelineActivity extends AppCompatActivity {
 
     public static final String TAG = "TimelineActivity";
+    private static final int REQUEST_CODE = 20;
+
+    ActivityResultLauncher<Intent> actreslauncher;
 
     TwitterClient client;
     RecyclerView rvTweets;
@@ -38,16 +57,24 @@ public class TimelineActivity extends AppCompatActivity {
     ActionBar actionBar;
     TwitterUserModel currentUser;
 
+    Context self_context;
+
+    FloatingActionButton floatButton;
+
     private EndlessRecyclerViewScrollListener scrollListener;
 
     @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
 
+        self_context = this;
 
-
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.custom_toolbar);
 
 
         //TODO:data binding required
@@ -55,11 +82,30 @@ public class TimelineActivity extends AppCompatActivity {
         client = TwitterApp.getRestClient(this);
 
         actionBar = getSupportActionBar();
-        loadCurrentUserOnActionBar();
 
-        actionBar.setIcon(R.drawable.ic_launcher_twitter_round);
-        actionBar.setDisplayUseLogoEnabled(true);
-        actionBar.setDisplayShowHomeEnabled(true);
+
+
+
+
+
+        actreslauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if (result.getResultCode() == Activity.RESULT_OK) {
+                            // There are no request codes
+                            Intent data = result.getData();
+
+                            TweetModel tweet = (TweetModel) Parcels.unwrap(data.getParcelableExtra("parcel_tweet"));
+                            adapter.addFirst(tweet);
+
+                            rvTweets.scrollToPosition(0);
+                        }
+                    }
+                });
+
+
 
 
 
@@ -70,7 +116,7 @@ public class TimelineActivity extends AppCompatActivity {
             @Override
             public void onRefresh() {
                 Log.i(TAG,"fetching data...");
-                populateHomeTimeline(1);
+                populateHomeTimeline();
             }
 
 
@@ -88,8 +134,6 @@ public class TimelineActivity extends AppCompatActivity {
         rvTweets.setLayoutManager(layoutManager);
         rvTweets.setAdapter(adapter);
 
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
-        rvTweets.addItemDecoration(dividerItemDecoration);
 
 
         scrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
@@ -102,33 +146,37 @@ public class TimelineActivity extends AppCompatActivity {
 
         rvTweets.addOnScrollListener(scrollListener);
 
+        floatButton = findViewById(R.id.fabCompose);
 
-        populateHomeTimeline(1);
-    }
-
-    public void loadCurrentUserOnActionBar()
-    {
-        client.getVerificationCredentials(new JsonHttpResponseHandler() {
+        floatButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onSuccess(int statusCode, Headers headers, JSON json) {
-                JSONObject JSONobj = json.jsonObject;
-                try {
-                   currentUser = TwitterUserModel.fromJson(JSONobj);
-                    actionBar.setSubtitle("@"+currentUser.screenName+"'s Home Timeline");
-                } catch (JSONException e) {
-                    Log.e(TAG,"Failed json", e);
-                }
-
-            }
-
-            @Override
-            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
-                Log.e(TAG,"OnFailure()"+response, throwable);
+            public void onClick(View view) {
+                Intent intent = new Intent(self_context, ComposeActivity.class);
+                actreslauncher.launch(intent);
+                //showEditDialog();
             }
         });
+
+
+        populateHomeTimeline();
     }
 
-    public void loadNextDataFromApi(int offset){
+    private void showEditDialog() {
+        FragmentManager fm = getSupportFragmentManager();
+        ComposeDialogFragment editNameDialogFragment = ComposeDialogFragment.newInstance();
+        editNameDialogFragment.show(fm, "fragment_edit_name");
+
+    }
+
+
+    //menu options setup
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    public void loadNextDataFromApi(int page){
         // Send an API request to retrieve appropriate paginated data
         //  --> Send the request including an offset value (i.e `page`) as a query parameter.
         client.getNextHomeTimeline(new JsonHttpResponseHandler() {
@@ -159,7 +207,7 @@ public class TimelineActivity extends AppCompatActivity {
 
 
 
-    public void populateHomeTimeline(int page) {
+    public void populateHomeTimeline() {
         // Send the network request to fetch the updated data
         // `client` here is an instance of Android Async HTTP
         // getHomeTimeline is an example endpoint.

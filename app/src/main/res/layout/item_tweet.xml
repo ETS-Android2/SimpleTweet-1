@@ -1,97 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rlFullTweetLayout"
+    android:background="@drawable/layout_bg"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
-    android:id="@+id/rlTweeterTimelineRecyclerLayout"
-    >
+    android:layout_margin="2dp">
 
-    <TextView
-        android:id="@+id/tvRTMarker"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="@dimen/name_time_spaces"
-        android:layout_toEndOf="@+id/ivRTImage"
-        tools:text="This is my Tweet!" />
+        android:layout_margin="7dp"
 
-    <ImageView
-        android:id="@+id/ivRTImage"
-        android:layout_width="wrap_content"
-        android:layout_height="19dp"
-        tools:srcCompat="@drawable/ic_vector_retweet_gray" />
+        android:id="@+id/rlTweeterTimelineRecyclerLayout"
+        >
 
+        <TextView
+            android:id="@+id/tvRTMarker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="@dimen/name_time_spaces"
+            android:layout_toEndOf="@+id/ivRTImage"
+            tools:text="This is my Tweet!" />
 
-    <ImageView
-        android:id="@+id/ivProfileImage"
-        android:layout_below="@+id/tvRTMarker"
-        android:layout_marginTop="5dp"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        tools:srcCompat="@tools:sample/avatars" />
-
-    <TextView
-        android:id="@+id/tvScreenName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvRTMarker"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_toEndOf="@+id/ivProfileImage"
-        android:ellipsize="end"
-        android:maxEms="30"
-        android:singleLine="true"
-        android:textColor="@color/colorPrimaryDark"
-        android:textStyle="bold"
-        tools:text="asdfasdfasdfasdasdfasdfasdfasdfasdfasdfafasdfasdfasdfa+" />
-
-    <TextView
-        android:id="@+id/tvBody"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvActualID"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="@dimen/name_time_spaces"
-        android:layout_toEndOf="@+id/ivProfileImage"
-        android:autoLink="all"
-        android:textColor="@color/colorPrimary"
-        tools:text="This is my Tweet!" />
-
-    <TextView
-        android:id="@+id/tvActualID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvScreenName"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="@dimen/name_time_spaces"
-        android:layout_marginEnd="5dp"
-        android:layout_toEndOf="@+id/ivProfileImage"
-        android:textSize="4.5pt"
-        tools:text="\@Neko2Mizu" />
-
-    <TextView
-        android:id="@+id/tvDot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvScreenName"
-        android:layout_marginTop="@dimen/name_time_spaces"
-        android:layout_marginEnd="5dp"
-        android:layout_toEndOf="@+id/tvActualID"
-        android:text="·"
-        android:textSize="4.5pt" />
-
-    <TextView
-        android:id="@+id/tvUpdateTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvScreenName"
-        android:layout_marginTop="@dimen/name_time_spaces"
-        android:layout_toEndOf="@+id/tvDot"
-        android:textSize="4.5pt"
-        tools:text="5h" />
+        <ImageView
+            android:id="@+id/ivRTImage"
+            android:layout_width="wrap_content"
+            android:layout_height="19dp"
+            android:layout_marginTop="@dimen/name_time_spaces"
+            tools:srcCompat="@drawable/ic_vector_retweet_gray" />
 
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/pfCardview"
+            android:layout_below="@+id/tvRTMarker"
+            android:layout_marginTop="5dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:cardCornerRadius="25dp"
+            >
+            <ImageView
+                android:id="@+id/ivProfileImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:srcCompat="@tools:sample/avatars" />
 
+        </androidx.cardview.widget.CardView>
+
+
+        <TextView
+            android:id="@+id/tvScreenName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvRTMarker"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@+id/pfCardview"
+            android:ellipsize="end"
+            android:maxEms="30"
+            android:singleLine="true"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"
+            android:textSize="8pt"
+            tools:text="asdfasdfasdfasdasdfasdfasdfasdfasdfasdfafasdfasdfasdfa+" />
+
+        <TextView
+            android:id="@+id/tvBody"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvActualID"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="@dimen/name_time_spaces"
+            android:layout_marginBottom="@dimen/name_time_spaces"
+            android:layout_toEndOf="@+id/pfCardview"
+            android:autoLink="all"
+            android:textColor="@color/colorPrimary"
+            tools:text="This is my Tweet!" />
+
+        <TextView
+            android:id="@+id/tvActualID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvScreenName"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_toEndOf="@+id/pfCardview"
+            tools:text="\@Neko2Mizu" />
+
+        <TextView
+            android:id="@+id/tvDot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvScreenName"
+            android:layout_marginTop="@dimen/name_time_spaces"
+            android:layout_marginEnd="5dp"
+            android:layout_toEndOf="@+id/tvActualID"
+            android:text="·"
+            android:textSize="4.5pt" />
+
+        <TextView
+            android:id="@+id/tvUpdateTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvScreenName"
+            android:layout_toEndOf="@+id/tvDot"
+            tools:text="5h" />
+
+
+    </RelativeLayout>
 </RelativeLayout>

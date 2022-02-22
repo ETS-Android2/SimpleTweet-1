@@ -1,9 +1,11 @@
 package com.codepath.apps.twitterprogram;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,6 +27,8 @@ public class DetailTweetActivity extends AppCompatActivity {
     TextView tvBody;
     TextView tvRTMarker;
 
+    ImageButton backButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +37,14 @@ public class DetailTweetActivity extends AppCompatActivity {
 
         tweet = (TweetModel) Parcels.unwrap(getIntent().getParcelableExtra("parcel_tweet"));
         //view setup
+
+        //actionbar
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.detail_custom_toolbar);
+
+        backButton = findViewById(R.id.ibBackspace);
+
+
 
         ivProfileImage = findViewById(R.id.ivProfileImage);
         ivadditionalImage = findViewById(R.id.ivadditionalImage);
@@ -81,6 +93,13 @@ public class DetailTweetActivity extends AppCompatActivity {
             //has additional media image. load.
             Glide.with(this).load(decider.additionalImageURL).into(ivadditionalImage);
         }
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
     }
 }
